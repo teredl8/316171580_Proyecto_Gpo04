@@ -85,8 +85,8 @@ void main( )
     
 	
     color = vec4( result,texture( material.diffuse, TexCoords).rgb );
-	  if(color.a < 0.1 && trans>0)
-        discard;
+	 if(color.a < 0.1 && trans>0)
+      discard;
 }
 
 // Calculates the color when using a directional light.
