@@ -115,6 +115,7 @@ int main()
     Model repisa((char*)"Models/Repisa/repisaLibros.obj");
     Model alfombra((char*)"Models/Alfombra2/alfombra2.obj");
     Model cama((char*)"Models/Cama/Bed3.obj");
+    Model casa((char*)"Models/Casa/casa.obj");
 
     glm::mat4 projection = glm::perspective(camera.GetZoom(), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
 
@@ -255,7 +256,7 @@ int main()
         //glDrawArrays(GL_TRIANGLES, 0, 36);
         //mesita.Draw(lightingShader);
         //telefono.Draw(lightingShader);
-        //lampara.Draw(lightingShader);
+        lampara.Draw(lightingShader);
         //repisa.Draw(lightingShader);
         //alfombra.Draw(lightingShader);
         //cama.Draw(lightingShader);
