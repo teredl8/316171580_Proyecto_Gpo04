@@ -1,74 +1,69 @@
 ﻿  316171580_ProyectoFinal_GPO12.cpp
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(201,24): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(236,21): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(204,24): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(239,21): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
           with
           [
               T=float
           ]
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(237,21): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(240,21): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
           with
           [
               T=float
           ]
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(238,21): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(241,21): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
           with
           [
               T=float
           ]
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(252,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(255,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
           with
           [
               T=float
           ]
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(253,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(256,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
           with
           [
               T=float
           ]
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(254,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(257,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
           with
           [
               T=float
           ]
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(266,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(269,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
           with
           [
               T=float
           ]
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(267,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(270,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
           with
           [
               T=float
           ]
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(268,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(271,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
           with
           [
               T=float
           ]
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(279,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(282,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
           with
           [
               T=float
           ]
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(280,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(283,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
           with
           [
               T=float
           ]
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(281,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(284,22): warning C4244: '=': conversión de 'double' a 'T'; posible pérdida de datos
           with
           [
               T=float
           ]
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(602,11): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(603,11): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(607,18): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(608,18): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(610,10): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(611,10): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-LINK : warning LNK4098: la biblioteca predeterminada'MSVCRT' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
-soil2-debug.lib(etc1_utils.obj) : warning LNK4099: no se encontró PDB 'soil2-debug.pdb' con 'soil2-debug.lib(etc1_utils.obj)' o en 'D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\Debug\soil2-debug.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
-soil2-debug.lib(image_DXT.obj) : warning LNK4099: no se encontró PDB 'soil2-debug.pdb' con 'soil2-debug.lib(image_DXT.obj)' o en 'D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\Debug\soil2-debug.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
-soil2-debug.lib(image_helper.obj) : warning LNK4099: no se encontró PDB 'soil2-debug.pdb' con 'soil2-debug.lib(image_helper.obj)' o en 'D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\Debug\soil2-debug.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
-soil2-debug.lib(SOIL2.obj) : warning LNK4099: no se encontró PDB 'soil2-debug.pdb' con 'soil2-debug.lib(SOIL2.obj)' o en 'D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\Debug\soil2-debug.pdb'; se vinculará el objeto sin tener en cuenta información de depuración
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(630,11): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(631,11): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(635,18): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(636,18): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(638,10): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\ProyectoFinal\316171580_ProyectoFinal_GPO12.cpp(639,10): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
   ProyectoFinal.vcxproj -> D:\Documentos\Tere\Semestre 2022-2\Lab. Computación Gráfica\RepositorioProyectoFinal\316171580_Proyecto_Gpo04\316171580_Proyecto_Gpo04\ProyectoFinal\Debug\ProyectoFinal.exe
