@@ -57,12 +57,18 @@ bool active;
 float rot = 0.0f;
 float rotPuertaFachada = 0.0;
 float rotPuertaCuarto = 0.0;
+float posicionCajon1 = -10.5;
+float posicionCajon2 = 11.25;
 bool animVentana1 = false;
 bool animVentana2 = false;
 bool animPuertaFachada1 = false;
 bool animPuertaFachada2 = false;
 bool animPuertaCuarto1 = false;
 bool animPuertaCuarto2 = false;
+bool animCajon11 = false;
+bool animCajon12 = false;
+bool animCajon21 = false;
+bool animCajon22 = false;
 
 //Posición SpotLight
 glm::vec3 spotLightPosition(0.0f, 0.0f, 0.0f);
@@ -190,6 +196,9 @@ int main()
 	Model ventanasCirculares((char*)"Models/Casa/ventana cirular.obj");
 	Model ventanaConBarrotes((char*)"Models/Casa/ventana con barrotes.obj");
 	Model barrotes((char*)"Models/Casa/barrotes.obj");
+	Model mueble((char*)"Models/Mueble/mueble.obj");
+	Model cajon1((char*)"Models/Mueble/cajon1.obj");
+	Model cajon2((char*)"Models/Mueble/cajon2.obj");
 
 	// First, set the container's VAO (and VBO)
 	GLuint VBO, VAO;
@@ -431,6 +440,33 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
 		barrotes.Draw(lightingShader);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		//Mueble
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-0.75f, 14.39f, 5.2f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
+		mueble.Draw(lightingShader);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		//Cajón1 derecha
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(posicionCajon1, 14.39f, 3.5f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
+		cajon1.Draw(lightingShader);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		//Cajón2 izquierda
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-6.45f, 14.39f, posicionCajon2));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
+		cajon2.Draw(lightingShader);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 
@@ -705,6 +741,44 @@ void DoMovement()
 			}
 		}
 	}
+
+	if (keys[GLFW_KEY_U])
+	{
+		if (animCajon11) {
+			while (posicionCajon1 < -9.0) {
+				posicionCajon1 += 0.01;
+			}
+
+		}
+	}
+
+	if (keys[GLFW_KEY_J])
+	{
+		if (animCajon12) {
+			while (posicionCajon1 > -10.5) {
+				posicionCajon1 -= 0.01;
+			}
+		}
+	}
+
+	if (keys[GLFW_KEY_I])
+	{
+		if (animCajon21) {
+			while (posicionCajon2 < 11.25) {
+				posicionCajon2 += 0.01;
+			}
+
+		}
+	}
+
+	if (keys[GLFW_KEY_K])
+	{
+		if (animCajon22) {
+			while (posicionCajon2 > 9.3) {
+				posicionCajon2 -= 0.01;
+			}
+		}
+	}
 }
 
 // Is called whenever a key is pressed/released via GLFW
@@ -768,6 +842,22 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 
 	if (keys[GLFW_KEY_H]) {
 		animPuertaCuarto2 = true;
+	}
+
+	if (keys[GLFW_KEY_U]) {
+		animCajon11 = true;
+	}
+
+	if (keys[GLFW_KEY_J]) {
+		animCajon12 = true;
+	}
+
+	if (keys[GLFW_KEY_I]) {
+		animCajon21 = true;
+	}
+
+	if (keys[GLFW_KEY_K]) {
+		animCajon22 = true;
 	}
 }
 
