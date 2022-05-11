@@ -59,6 +59,10 @@ float rotPuertaFachada = 0.0;
 float rotPuertaCuarto = 0.0;
 float posicionCajon1 = -10.5;
 float posicionCajon2 = 11.25;
+float movPelotaX = 6.0;
+float movPelotaY = 14.4;
+float movPelotaZ = -7.5;
+float rotPelota = 0.0;
 bool animVentana1 = false;
 bool animVentana2 = false;
 bool animPuertaFachada1 = false;
@@ -69,6 +73,17 @@ bool animCajon11 = false;
 bool animCajon12 = false;
 bool animCajon21 = false;
 bool animCajon22 = false;
+bool pelotaEnMovimiento = false;
+bool pelotaEnMovimiento2 = false;
+bool movPelota1 = true;
+bool movPelota2 = false;
+bool movPelota3 = false;
+bool movPelota4 = false;
+bool movPelota5 = false;
+bool movPelota6 = false;
+bool movPelota7 = false;
+bool movPelota8 = true;
+
 
 //Posición SpotLight
 glm::vec3 spotLightPosition(0.0f, 0.0f, 0.0f);
@@ -199,6 +214,7 @@ int main()
 	Model mueble((char*)"Models/Mueble/mueble.obj");
 	Model cajon1((char*)"Models/Mueble/cajon1.obj");
 	Model cajon2((char*)"Models/Mueble/cajon2.obj");
+	Model pelota((char*)"Models/Pelota/pelota.obj");
 
 	// First, set the container's VAO (and VBO)
 	GLuint VBO, VAO;
@@ -428,7 +444,6 @@ int main()
 		model = glm::mat4(1);
 		model = glm::scale(model, glm::vec3(1.0f, 1.01f, 1.0f));
 		model = glm::translate(model, glm::vec3(-11.2f, 18.53f, -9.78f));
-		//model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(rotPuertaCuarto), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
@@ -480,7 +495,7 @@ int main()
 		model = glm::rotate(model, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
-		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0, 1.0, 0.0, 0.85); //Para translucidez
+		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0, 1.0, 1.0, 0.85); //Para translucidez
 		ventana.Draw(lightingShader);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
@@ -488,7 +503,7 @@ int main()
 		model = glm::mat4(1);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
-		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0, 1.0, 0.0, 0.85); //Para translucidez
+		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0, 1.0, 1.0, 0.85); //Para translucidez
 		ventanasCirculares.Draw(lightingShader);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
@@ -496,8 +511,19 @@ int main()
 		model = glm::mat4(1);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
-		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0, 1.0, 0.0, 0.85); //Para translucidez
+		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0, 1.0, 1.0, 0.85); //Para translucidez
 		ventanaConBarrotes.Draw(lightingShader);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		//Pelota
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(movPelotaX, movPelotaY, movPelotaZ));
+		model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotPelota), glm::vec3(0.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
+		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0, 1.0, 1.0, 0.8); //Para translucidez
+		pelota.Draw(lightingShader);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 
@@ -663,7 +689,7 @@ void DoMovement()
 	{
 		spotLightDirection.x -= 0.01f;
 	}
-	
+
 	if (keys[GLFW_KEY_V])
 	{
 		spotLightDirection.y += 0.01f;
@@ -722,7 +748,7 @@ void DoMovement()
 			}
 		}
 	}
-	
+
 	if (keys[GLFW_KEY_Y])
 	{
 		if (animPuertaCuarto1) {
@@ -779,6 +805,99 @@ void DoMovement()
 			}
 		}
 	}
+
+	if (pelotaEnMovimiento)
+	{
+		if (movPelota1)
+		{
+			movPelotaY += 0.1f;
+			if (movPelotaY > 17.4) {
+				movPelota1 = false;
+				movPelota2 = true;
+			}
+
+		}
+		if (movPelota2)
+		{
+			movPelotaY -= 0.1f;
+			movPelotaX -= 0.05f;
+			if (movPelotaY < 14.5 && movPelotaX < 4.5)
+			{
+				movPelota2 = false;
+				movPelota3 = true;
+
+			}
+		}
+		if (movPelota3)
+		{
+			movPelotaY += 0.2f;
+			movPelotaX -= 0.1f;
+			if (movPelotaY > 16.0 && movPelotaX < 3.0)
+			{
+				movPelota3 = false;
+				movPelota4 = true;
+			}
+		}
+		if (movPelota4)
+		{
+			movPelotaY -= 0.2f;
+			movPelotaX -= 0.1f;
+			if (movPelotaY < 14.5 && movPelotaX < 1.5)
+			{
+				movPelota4 = false;
+				movPelota5 = true;
+
+			}
+		}
+		if (movPelota5)
+		{
+			movPelotaY += 0.1f;
+			movPelotaX -= 0.05f;
+			if (movPelotaY > 15.0 && movPelotaX < 0.0)
+			{
+				movPelota5 = false;
+				movPelota6 = true;
+			}
+		}
+		if (movPelota6)
+		{
+			movPelotaY -= 0.1f;
+			movPelotaX -= 0.05f;
+			if (movPelotaY < 14.5 && movPelotaX < -1.5)
+			{
+				movPelota6 = false;
+				movPelota7 = true;
+			}
+		}
+		if (movPelota7)
+		{
+			rotPelota += 1.0f;//Z
+			movPelotaX -= 0.01f;
+			if (movPelotaX < -7.0)
+			{
+				movPelota7 = false;
+			}
+		}
+	}
+	/*Regresar a la pelota al la posición inicial 
+
+	if (keys[GLFW_KEY_L])
+	{
+		pelotaEnMovimiento2 = true;
+	}
+
+	if (pelotaEnMovimiento2)
+	{
+		if (movPelota8) {
+			rotPelota += 3.0f;
+			movPelotaX += 0.1;
+			if (movPelotaX > 6.0) {
+				movPelota8 = false;
+				rotPelota = 45.0; 
+			}
+		}
+	}*/
+
 }
 
 // Is called whenever a key is pressed/released via GLFW
@@ -859,6 +978,12 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 	if (keys[GLFW_KEY_K]) {
 		animCajon22 = true;
 	}
+
+	if (keys[GLFW_KEY_O])
+	{
+		pelotaEnMovimiento = true;
+	}
+
 }
 
 void MouseCallback(GLFWwindow *window, double xPos, double yPos)
