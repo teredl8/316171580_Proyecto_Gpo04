@@ -63,6 +63,8 @@ float movPelotaX = 6.0;
 float movPelotaY = 14.4;
 float movPelotaZ = -7.5;
 float rotPelota = 0.0;
+float rotOso = 0.0f;
+float movOsoY = 19.05f;
 bool animVentana1 = false;
 bool animVentana2 = false;
 bool animPuertaFachada1 = false;
@@ -83,6 +85,10 @@ bool movPelota5 = false;
 bool movPelota6 = false;
 bool movPelota7 = false;
 bool movPelota8 = true;
+bool osoEnMovimiento = false;
+bool movOso1 = true;
+bool movOso2 = false;
+
 
 
 //Posición SpotLight
@@ -197,7 +203,7 @@ int main()
 
 	Shader lightingShader("Shaders/lighting.vs", "Shaders/lighting.frag");
 	Shader lampShader("Shaders/lamp.vs", "Shaders/lamp.frag");
-	
+
 	Model casa((char*)"Models/Casa/casaChicas.obj");
 	Model telefono((char*)"Models/Phone_/Phone2.obj");
 	Model mesita((char*)"Models/Mesita/mesitaConTextura.obj");
@@ -215,6 +221,7 @@ int main()
 	Model cajon1((char*)"Models/Mueble/cajon1.obj");
 	Model cajon2((char*)"Models/Mueble/cajon2.obj");
 	Model pelota((char*)"Models/Pelota/pelota.obj");
+	Model oso((char*)"Models/Oso de peluche/oso.obj");
 
 	// First, set the container's VAO (and VBO)
 	GLuint VBO, VAO;
@@ -484,6 +491,16 @@ int main()
 		cajon2.Draw(lightingShader);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
+		//Oso
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(0.8f));
+		model = glm::translate(model, glm::vec3(-12.8f, movOsoY, 1.9f));
+		model = glm::rotate(model, glm::radians(rotOso), glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
+		oso.Draw(lightingShader);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
 
 
 		glEnable(GL_BLEND);//Activa la funcionalidad para trabajar el canal alfa
@@ -605,111 +622,7 @@ void DoMovement()
 
 	}
 
-	/*if (keys[GLFW_KEY_T])
-	{
-		pointLightPositions[0].x += 0.01f;
-		pointLightPositions[1].x += 0.01f;
-		pointLightPositions[2].x += 0.01f;
-		pointLightPositions[3].x += 0.01f;
-	}
-	if (keys[GLFW_KEY_G])
-	{
-		pointLightPositions[0].x -= 0.01f;
-		pointLightPositions[1].x -= 0.01f;
-		pointLightPositions[2].x -= 0.01f;
-		pointLightPositions[3].x -= 0.01f;
-	}*/
-
-	//if (keys[GLFW_KEY_Y])
-	//{
-	//	pointLightPositions[0].y += 0.01f;
-	//	pointLightPositions[1].y += 0.01f;
-	//	pointLightPositions[2].y += 0.01f;
-	//	pointLightPositions[3].y += 0.01f;
-	//}
-
-	//if (keys[GLFW_KEY_H])
-	//{
-	//	pointLightPositions[0].y -= 0.01f;
-	//	pointLightPositions[1].y -= 0.01f;
-	//	pointLightPositions[2].y -= 0.01f;
-	//	pointLightPositions[3].y -= 0.01f;
-	//}
-	//if (keys[GLFW_KEY_U])
-	//{
-	//	pointLightPositions[0].z -= 0.1f;
-	//	pointLightPositions[1].z -= 0.1f;
-	//	pointLightPositions[2].z -= 0.1f;
-	//	pointLightPositions[3].z -= 0.1f;
-	//}
-	//if (keys[GLFW_KEY_J])
-	//{
-	//	pointLightPositions[0].z += 0.01f;
-	//	pointLightPositions[1].z += 0.01f;
-	//	pointLightPositions[2].z += 0.01f;
-	//	pointLightPositions[3].z += 0.01f;
-	//}
-
-	/*if (keys[GLFW_KEY_R])
-	{
-		spotLightPosition.x += 0.01f;
-	}
-
-	if (keys[GLFW_KEY_F])
-	{
-		spotLightPosition.x -= 0.01f;
-	}
-
-	if (keys[GLFW_KEY_I])
-	{
-		spotLightPosition.y += 0.01f;
-	}
-
-	if (keys[GLFW_KEY_K])
-	{
-		spotLightPosition.y -= 0.01f;
-	}
-
-	if (keys[GLFW_KEY_O])
-	{
-		spotLightPosition.z += 0.01f;
-	}
-
-	if (keys[GLFW_KEY_L])
-	{
-		spotLightPosition.z -= 0.01f;
-	}
-
-	if (keys[GLFW_KEY_X])
-	{
-		spotLightDirection.x += 0.01f;
-	}
-
-	if (keys[GLFW_KEY_Z])
-	{
-		spotLightDirection.x -= 0.01f;
-	}
-
-	if (keys[GLFW_KEY_V])
-	{
-		spotLightDirection.y += 0.01f;
-	}
-
-	if (keys[GLFW_KEY_C])
-	{
-		spotLightDirection.y -= 0.01f;
-	}
-
-	if (keys[GLFW_KEY_N])
-	{
-		spotLightDirection.z += 0.01f;
-	}
-
-	if (keys[GLFW_KEY_B])
-	{
-		spotLightDirection.z -= 0.01f;
-	}
-	*/
+	//Movimiento de objetos 
 
 	if (keys[GLFW_KEY_R])
 	{
@@ -815,7 +728,6 @@ void DoMovement()
 				movPelota1 = false;
 				movPelota2 = true;
 			}
-
 		}
 		if (movPelota2)
 		{
@@ -825,7 +737,6 @@ void DoMovement()
 			{
 				movPelota2 = false;
 				movPelota3 = true;
-
 			}
 		}
 		if (movPelota3)
@@ -846,7 +757,6 @@ void DoMovement()
 			{
 				movPelota4 = false;
 				movPelota5 = true;
-
 			}
 		}
 		if (movPelota5)
@@ -879,24 +789,32 @@ void DoMovement()
 			}
 		}
 	}
-	/*Regresar a la pelota al la posición inicial 
 
-	if (keys[GLFW_KEY_L])
-	{
-		pelotaEnMovimiento2 = true;
-	}
-
-	if (pelotaEnMovimiento2)
-	{
+	/*if (pelotaEnMovimiento2) {
 		if (movPelota8) {
-			rotPelota += 3.0f;
-			movPelotaX += 0.1;
-			if (movPelotaX > 6.0) {
+			movPelotaX += 0.1f;
+			rotPelota -= 1.0f;
+			if (movPelotaX > 6.0f) {
 				movPelota8 = false;
-				rotPelota = 45.0; 
 			}
 		}
 	}*/
+	
+	if (osoEnMovimiento) {
+		if (movOso1) {
+			rotOso -= 1.0f;//x
+			if (rotOso < -90) {
+				movOso1 = false;
+				movOso2 = true;
+			}
+		}
+		if (movOso2) {
+			movOsoY -= 0.1f;
+			if (movOsoY < 18.0) {
+				movOso2 = false;
+			}
+		}
+	}
 
 }
 
@@ -932,13 +850,14 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		}
 		else
 		{
-			Light1 = glm::vec3(0);//Cuado es solo un valor en los 3 vectores pueden dejar solo una componente
+			Light1 = glm::vec3(0);//Cuando es solo un valor en los 3 vectores pueden dejar solo una componente
 			Light2 = glm::vec3(0);
 			Light3 = glm::vec3(0);
 			Light4 = glm::vec3(0);
 		}
 	}
 
+	//Para animación de objetos 
 	if (keys[GLFW_KEY_R]) {
 		animVentana1 = true;
 	}
@@ -983,6 +902,12 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 	{
 		pelotaEnMovimiento = true;
 	}
+
+	if (keys[GLFW_KEY_L])
+	{
+		osoEnMovimiento = true;
+	}
+
 
 }
 
