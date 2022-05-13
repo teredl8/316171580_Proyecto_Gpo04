@@ -28,6 +28,7 @@
 void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode);
 void MouseCallback(GLFWwindow *window, double xPos, double yPos);
 void DoMovement();
+void animacion();
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -39,31 +40,19 @@ GLfloat lastX = WIDTH / 2.0;
 GLfloat lastY = HEIGHT / 2.0;
 bool keys[1024];
 bool firstMouse = true;
-// Light attributes
-//glm::vec3 lightPos1(3.0f, 0.0f, 3.0f);
-//glm::vec3 lightPos2(-3.0f, 0.0f, 3.0f);
-//glm::vec3 lightPos3(3.0f, 0.0f, -3.0f);
-//glm::vec3 lightPos4(-3.0f, 0.0f, -3.0f);
-bool active;
 
-// Positions of the point lights
-//glm::vec3 pointLightPositions[] = {
-//	glm::vec3(3.0f,0.0f, 3.0f),
-//	glm::vec3(-3.0f,0.0f, 3.0f),
-//	glm::vec3(3.0f,0.0f,  -3.0f),
-//	glm::vec3(-3.0f,0.0f, -3.0f)
-//};
-
+//Variables a ocupar para movimientos de los objetos
 float rot = 0.0f;
-float rotPuertaFachada = 0.0;
-float rotPuertaCuarto = 0.0;
-float posicionCajon1 = -10.5;
-float posicionCajon2 = 11.25;
-float movPelotaX = 6.0;
-float movPelotaY = 14.4;
-float movPelotaZ = -7.5;
-float rotPelota = 0.0;
+float rotPuertaFachada = 0.0f;
+float rotPuertaCuarto = 0.0f;
+float posicionCajon1 = -10.5f;
+float posicionCajon2 = 11.25f;
+float movPelotaX = 6.0f;
+float movPelotaY = 14.4f;
+float movPelotaZ = -7.5f;
+float rotPelota = 0.0f;
 float rotOso = 0.0f;
+float rotTelefonoArriba = 0.0f;
 float movOsoY = 19.05f;
 bool animVentana1 = false;
 bool animVentana2 = false;
@@ -84,19 +73,13 @@ bool movPelota4 = false;
 bool movPelota5 = false;
 bool movPelota6 = false;
 bool movPelota7 = false;
-bool movPelota8 = true;
+bool movPelota8 = false;
 bool osoEnMovimiento = false;
 bool movOso1 = true;
 bool movOso2 = false;
-
-
-
-//Posición SpotLight
-glm::vec3 spotLightPosition(0.0f, 0.0f, 0.0f);
-
-//Dirección SpotLight
-glm::vec3 spotLightDirection(1.0f, 1.0f, 1.0f);
-
+bool telefonoEnMovimiento = false;
+bool movTelefono1 = true;
+bool movTelefono2 = false;
 
 float vertices[] = {
 	 -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -141,13 +124,6 @@ float vertices[] = {
 	   -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
 	   -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
 };
-
-
-
-glm::vec3 Light1 = glm::vec3(0);
-glm::vec3 Light2 = glm::vec3(0);
-glm::vec3 Light3 = glm::vec3(0);
-glm::vec3 Light4 = glm::vec3(0);
 
 
 // Deltatime
@@ -204,8 +180,10 @@ int main()
 	Shader lightingShader("Shaders/lighting.vs", "Shaders/lighting.frag");
 	Shader lampShader("Shaders/lamp.vs", "Shaders/lamp.frag");
 
+	//Carga de modelos 
 	Model casa((char*)"Models/Casa/casaChicas.obj");
-	Model telefono((char*)"Models/Phone_/Phone2.obj");
+	Model telefono((char*)"Models/Telefono/Phone2.obj");
+	Model telefonoArriba((char*)"Models/Telefono/Phone1.obj");
 	Model mesita((char*)"Models/Mesita/mesitaConTextura.obj");
 	Model cama((char*)"Models/Cama/Bed3.obj");
 	Model alfombra((char*)"Models/Alfombra2/alfombra2.obj");
@@ -256,6 +234,7 @@ int main()
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
 		DoMovement();
+		animacion();
 
 		// Clear the colorbuffer
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -263,10 +242,6 @@ int main()
 
 		// OpenGL options
 		glEnable(GL_DEPTH_TEST);
-
-
-
-		//Load Model
 
 
 		// Use cooresponding shader when setting uniforms/drawing objects
@@ -280,75 +255,6 @@ int main()
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.ambient"), 0.8f, 0.8f, 0.8f);
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.diffuse"), 1.0f, 1.0f, 1.0f);
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.specular"), 1.0f, 1.0f, 1.0f);
-
-
-		//// Point light 1
-	 //   glm::vec3 lightColor1;
-		//lightColor1.x= abs(sin(glfwGetTime() *Light1.x));
-		//lightColor1.y= abs(sin(glfwGetTime() *Light1.y));
-		//lightColor1.z= sin(glfwGetTime() *Light1.z);
-
-		//glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].position"), pointLightPositions[0].x, pointLightPositions[0].y, pointLightPositions[0].z);
-		//glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].ambient"), lightColor1.x,lightColor1.y, lightColor1.z);
-		//glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].diffuse"), lightColor1.x,lightColor1.y,lightColor1.z);
-		//glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].specular"), 1.0f, 1.0f, 1.0f);
-		//glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[0].constant"), 1.0f);
-		//glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[0].linear"), 0.045f);
-		//glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[0].quadratic"),0.075f);
-
-
-
-		//// Point light 2
-		//glm::vec3 lightColor2;
-		//lightColor2.x = abs(sin(glfwGetTime() * Light2.x));
-		//lightColor2.y = abs(sin(glfwGetTime() * Light2.y));
-		//lightColor2.z = sin(glfwGetTime() * Light2.z);
-
-		//glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].position"), pointLightPositions[1].x, pointLightPositions[1].y, pointLightPositions[1].z);
-		//glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].ambient"), lightColor2.x, lightColor2.y, lightColor2.z);
-		//glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].diffuse"), lightColor2.x, lightColor2.y, lightColor2.z);
-		//glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].specular"), 1.0f, 1.0f, 1.0f);
-		//glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].constant"), 1.0f);
-		//glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].linear"), 0.045f);
-		//glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].quadratic"), 0.075f);
-
-		//// Point light 3
-		//glm::vec3 lightColor3;
-		//lightColor3.x = abs(sin(glfwGetTime() * Light3.x));
-		//lightColor3.y = abs(sin(glfwGetTime() * Light3.y));
-		//lightColor3.z = sin(glfwGetTime() * Light3.z);
-		//glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].position"), pointLightPositions[2].x, pointLightPositions[2].y, pointLightPositions[2].z);
-		//glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].ambient"), lightColor3.x, lightColor3.y, lightColor3.z);
-		//glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].diffuse"), lightColor3.x, lightColor3.y, lightColor3.z);
-		//glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].specular"), 1.0f, 1.0f, 1.0f);
-		//glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[2].constant"), 1.0f);
-		//glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[2].linear"), 0.045f);
-		//glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[2].quadratic"), 0.075f);
-
-		//// Point light 4
-		//glm::vec3 lightColor4;
-		//lightColor4.x = abs(sin(glfwGetTime() * Light4.x));
-		//lightColor4.y = abs(sin(glfwGetTime() * Light4.y));
-		//lightColor4.z = sin(glfwGetTime() * Light4.z);
-		//glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[3].position"), pointLightPositions[3].x, pointLightPositions[3].y, pointLightPositions[3].z);
-		//glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[3].ambient"), lightColor4.x, lightColor4.y, lightColor4.z);
-		//glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[3].diffuse"), lightColor4.x, lightColor4.y, lightColor4.z);
-		//glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[3].specular"), 1.0f, 1.0f, 1.0f);
-		//glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[3].constant"), 1.0f);
-		//glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[3].linear"), 0.045f);
-		//glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[3].quadratic"), 0.075f);
-
-		// SpotLight
-		/*glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.position"), spotLightPosition.x, spotLightPosition.y, spotLightPosition.z);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.direction"), spotLightDirection.x, spotLightDirection.y, spotLightDirection.z);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.ambient"), 1.0f, 1.0f, 1.0f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.diffuse"), 1.0f, 1.0f, 1.0f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.specular"),1.0f, 1.0f, 1.0f);
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.constant"), 1.0f);
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.linear"), 0.35f);
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.quadratic"), 0.44f);
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.cutOff"), glm::cos(glm::radians(12.5f)));
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.outerCutOff"), glm::cos(glm::radians(15.0f)));*/
 
 		// Set material properties
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 16.0f);
@@ -369,10 +275,9 @@ int main()
 
 		glm::mat4 model(1);
 
-
-		//Carga de modelo 
 		view = camera.GetViewMatrix();
 
+		//Objetos 
 		//Casa
 		model = glm::mat4(1);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -383,13 +288,22 @@ int main()
 		//Telefono
 		model = glm::mat4(1);
 		model = glm::scale(model, glm::vec3(0.2f));
-		model = glm::translate(model, glm::vec3(40.0f, 87.0f, 51.0f));
-		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(39.5f, 87.0f, 51.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 1);
 		telefono.Draw(lightingShader);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
+
+		//Telefono Arriba
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(0.2f));
+		model = glm::translate(model, glm::vec3(39.5f, 87.0f, 51.0f));
+		model = glm::rotate(model, glm::radians(rotTelefonoArriba), glm::vec3(0.0f, 0.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
+		telefonoArriba.Draw(lightingShader);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 		//Mesita
 		model = glm::mat4(1);
@@ -556,27 +470,6 @@ int main()
 		viewLoc = glGetUniformLocation(lampShader.Program, "view");
 		projLoc = glGetUniformLocation(lampShader.Program, "projection");
 
-		//// Set matrices
-		//glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		//glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-		//model = glm::mat4(1);
-		//model = glm::translate(model, lightPos1);
-		//model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//// Draw the light object (using light's vertex attributes)
-		//for (GLuint i = 0; i < 4; i++)
-		//{
-		//	model = glm::mat4(1);
-		//	model = glm::translate(model, pointLightPositions[i]);
-		//	model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
-		//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//	glBindVertexArray(VAO);
-		//	glDrawArrays(GL_TRIANGLES, 0, 36);
-		//}
-		//glBindVertexArray(0);
-
-
-
 		// Swap the screen buffers
 		glfwSwapBuffers(window);
 	}
@@ -620,6 +513,72 @@ void DoMovement()
 		camera.ProcessKeyboard(RIGHT, deltaTime);
 
 
+	}
+
+	//Para animación de objetos 
+	if (keys[GLFW_KEY_R]) {
+		animVentana1 = true;
+	}
+
+	if (keys[GLFW_KEY_F]) {
+		animVentana2 = true;
+	}
+
+	if (keys[GLFW_KEY_T]) {
+		animPuertaFachada1 = true;
+	}
+
+	if (keys[GLFW_KEY_G]) {
+		animPuertaFachada2 = true;
+	}
+
+	if (keys[GLFW_KEY_Y]) {
+		animPuertaCuarto1 = true;
+	}
+
+	if (keys[GLFW_KEY_H]) {
+		animPuertaCuarto2 = true;
+	}
+
+	if (keys[GLFW_KEY_U]) {
+		animCajon11 = true;
+	}
+
+	if (keys[GLFW_KEY_J]) {
+		animCajon12 = true;
+	}
+
+	if (keys[GLFW_KEY_I]) {
+		animCajon21 = true;
+	}
+
+	if (keys[GLFW_KEY_K]) {
+		animCajon22 = true;
+	}
+
+	if (keys[GLFW_KEY_O])
+	{
+		pelotaEnMovimiento = true;
+	}
+
+	if (keys[GLFW_KEY_P])
+	{
+		pelotaEnMovimiento = false;
+	}
+
+	if (keys[GLFW_KEY_L])
+	{
+		osoEnMovimiento = true;
+	}
+
+	if (keys[GLFW_KEY_Z])
+	{
+		telefonoEnMovimiento = true;
+	}
+
+	if (keys[GLFW_KEY_X])
+	{
+		telefonoEnMovimiento = false;
 	}
 
 	//Movimiento de objetos 
@@ -719,12 +678,16 @@ void DoMovement()
 		}
 	}
 
+
+}
+
+void animacion(){
 	if (pelotaEnMovimiento)
 	{
 		if (movPelota1)
 		{
 			movPelotaY += 0.1f;
-			if (movPelotaY > 17.4) {
+			if (movPelotaY > 17.4f) {
 				movPelota1 = false;
 				movPelota2 = true;
 			}
@@ -733,7 +696,7 @@ void DoMovement()
 		{
 			movPelotaY -= 0.1f;
 			movPelotaX -= 0.05f;
-			if (movPelotaY < 14.5 && movPelotaX < 4.5)
+			if (movPelotaY < 14.5f && movPelotaX < 4.5f)
 			{
 				movPelota2 = false;
 				movPelota3 = true;
@@ -743,7 +706,7 @@ void DoMovement()
 		{
 			movPelotaY += 0.2f;
 			movPelotaX -= 0.1f;
-			if (movPelotaY > 16.0 && movPelotaX < 3.0)
+			if (movPelotaY > 16.0f && movPelotaX < 3.0f)
 			{
 				movPelota3 = false;
 				movPelota4 = true;
@@ -753,7 +716,7 @@ void DoMovement()
 		{
 			movPelotaY -= 0.2f;
 			movPelotaX -= 0.1f;
-			if (movPelotaY < 14.5 && movPelotaX < 1.5)
+			if (movPelotaY < 14.5f && movPelotaX < 1.5f)
 			{
 				movPelota4 = false;
 				movPelota5 = true;
@@ -763,7 +726,7 @@ void DoMovement()
 		{
 			movPelotaY += 0.1f;
 			movPelotaX -= 0.05f;
-			if (movPelotaY > 15.0 && movPelotaX < 0.0)
+			if (movPelotaY > 15.0f && movPelotaX < 0.0f)
 			{
 				movPelota5 = false;
 				movPelota6 = true;
@@ -773,7 +736,7 @@ void DoMovement()
 		{
 			movPelotaY -= 0.1f;
 			movPelotaX -= 0.05f;
-			if (movPelotaY < 14.5 && movPelotaX < -1.5)
+			if (movPelotaY < 14.5f && movPelotaX < -1.5f)
 			{
 				movPelota6 = false;
 				movPelota7 = true;
@@ -783,35 +746,51 @@ void DoMovement()
 		{
 			rotPelota += 1.0f;//Z
 			movPelotaX -= 0.01f;
-			if (movPelotaX < -7.0)
+			if (movPelotaX < -7.0f)
 			{
 				movPelota7 = false;
+				movPelota8 = true;
+			}
+		}
+		if (movPelota8) {
+			rotPelota -= 3.0f;
+			movPelotaX += 0.1f;
+			if (movPelotaX > 6.0f) {
+				movPelota8 = false;
+				movPelota1 = true; 
 			}
 		}
 	}
-
-	/*if (pelotaEnMovimiento2) {
-		if (movPelota8) {
-			movPelotaX += 0.1f;
-			rotPelota -= 1.0f;
-			if (movPelotaX > 6.0f) {
-				movPelota8 = false;
-			}
-		}
-	}*/
 	
 	if (osoEnMovimiento) {
 		if (movOso1) {
 			rotOso -= 1.0f;//x
-			if (rotOso < -90) {
+			if (rotOso < -90.0f) {
 				movOso1 = false;
 				movOso2 = true;
 			}
 		}
 		if (movOso2) {
 			movOsoY -= 0.1f;
-			if (movOsoY < 18.0) {
+			if (movOsoY < 18.0f) {
 				movOso2 = false;
+			}
+		}
+	}
+
+	if (telefonoEnMovimiento) {
+		if (movTelefono1) {
+			rotTelefonoArriba -= 1.0f;
+			if (rotTelefonoArriba < -5.0) {
+				movTelefono1 = false;
+				movTelefono2 = true;
+			}
+		}
+		if (movTelefono2) {
+			rotTelefonoArriba += 1.0f;
+			if (rotTelefonoArriba > 5.0) {
+				movTelefono2 = false;
+				movTelefono1 = true;
 			}
 		}
 	}
@@ -837,78 +816,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 			keys[key] = false;
 		}
 	}
-
-	if (keys[GLFW_KEY_SPACE])
-	{
-		active = !active;
-		if (active)
-		{
-			Light1 = glm::vec3(0.941f, 0.278f, 0.882f);
-			Light2 = glm::vec3(0.0f, 1.0f, 0.0f);
-			Light3 = glm::vec3(0.0f, 0.0f, 1.0f);
-			Light4 = glm::vec3(1.0f, 0.0f, 1.0f);
-		}
-		else
-		{
-			Light1 = glm::vec3(0);//Cuando es solo un valor en los 3 vectores pueden dejar solo una componente
-			Light2 = glm::vec3(0);
-			Light3 = glm::vec3(0);
-			Light4 = glm::vec3(0);
-		}
-	}
-
-	//Para animación de objetos 
-	if (keys[GLFW_KEY_R]) {
-		animVentana1 = true;
-	}
-
-	if (keys[GLFW_KEY_F]) {
-		animVentana2 = true;
-	}
-
-	if (keys[GLFW_KEY_T]) {
-		animPuertaFachada1 = true;
-	}
-
-	if (keys[GLFW_KEY_G]) {
-		animPuertaFachada2 = true;
-	}
-
-	if (keys[GLFW_KEY_Y]) {
-		animPuertaCuarto1 = true;
-	}
-
-	if (keys[GLFW_KEY_H]) {
-		animPuertaCuarto2 = true;
-	}
-
-	if (keys[GLFW_KEY_U]) {
-		animCajon11 = true;
-	}
-
-	if (keys[GLFW_KEY_J]) {
-		animCajon12 = true;
-	}
-
-	if (keys[GLFW_KEY_I]) {
-		animCajon21 = true;
-	}
-
-	if (keys[GLFW_KEY_K]) {
-		animCajon22 = true;
-	}
-
-	if (keys[GLFW_KEY_O])
-	{
-		pelotaEnMovimiento = true;
-	}
-
-	if (keys[GLFW_KEY_L])
-	{
-		osoEnMovimiento = true;
-	}
-
-
 }
 
 void MouseCallback(GLFWwindow *window, double xPos, double yPos)
