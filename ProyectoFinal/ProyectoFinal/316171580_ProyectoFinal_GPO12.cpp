@@ -47,6 +47,7 @@ float rotPuertaFachada = 0.0f;
 float rotPuertaCuarto = 0.0f;
 float posicionCajon1 = -10.5f;
 float posicionCajon2 = 11.25f;
+float posicionCajonSala = -24.0f;
 float movPelotaX = 6.0f;
 float movPelotaY = 14.4f;
 float movPelotaZ = -7.5f;
@@ -80,6 +81,8 @@ bool movOso2 = false;
 bool telefonoEnMovimiento = false;
 bool movTelefono1 = true;
 bool movTelefono2 = false;
+bool animCajonSala1 = false;
+bool animCajonSala2 = false;
 
 float vertices[] = {
 	 -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -205,6 +208,9 @@ int main()
 	Model muebleSala((char*)"Models/Muebles Sala/muebleGrande.obj");
 	Model cajonesMuebleSala((char*)"Models/Muebles Sala/cajones.obj");
 	Model tele((char*)"Models/Tele/tele.obj");
+	Model bocina((char*)"Models/Muebles Sala/bocina.obj");
+	Model mesitaLampara((char*)"Models/mesitaSala/mesitaSala.obj");
+	Model lamparaSala((char*)"Models/lamparaSala/lamparaSala.obj");
 
 
 	// First, set the container's VAO (and VBO)
@@ -277,7 +283,6 @@ int main()
 		// Pass the matrices to the shader
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
 
 		glm::mat4 model(1);
 
@@ -424,7 +429,7 @@ int main()
 		//Sofa
 		model = glm::mat4(1);
 		model = glm::scale(model, glm::vec3(0.8f));
-		model = glm::translate(model, glm::vec3(-2.5f, 3.2f, 3.0f));
+		model = glm::translate(model, glm::vec3(-4.0f, 3.2f, 3.0f));
 		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
@@ -434,7 +439,7 @@ int main()
 		//Mesa de la sala
 		model = glm::mat4(1);
 		model = glm::scale(model, glm::vec3(1.5f));
-		model = glm::translate(model, glm::vec3(-3.0f, 1.2f, -0.2f));
+		model = glm::translate(model, glm::vec3(-4.0f, 1.22f, -0.2f));
 		model = glm::rotate(model, glm::radians(60.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
@@ -443,8 +448,8 @@ int main()
 
 		//Mueble de la sala
 		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(0.4f, 0.35f, 0.4f));
-		model = glm::translate(model, glm::vec3(-5.0f, 3.3f, -24.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.4f));
+		model = glm::translate(model, glm::vec3(-6.0f, 3.3f, -24.0f));
 		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
@@ -453,8 +458,8 @@ int main()
 
 		//Cajones del mueble de la sala
 		model = glm::mat4(1);
-		model = glm::scale(model, glm::vec3(0.4f, 0.35f, 0.4f));
-		model = glm::translate(model, glm::vec3(-5.0f, 3.3f, -24.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.4f));
+		model = glm::translate(model, glm::vec3(-6.0f, 3.3f, posicionCajonSala));
 		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
@@ -464,13 +469,50 @@ int main()
 		//Tele
 		model = glm::mat4(1);
 		model = glm::scale(model, glm::vec3(0.8f));
-		model = glm::translate(model, glm::vec3(-2.5f, 6.0f, -12.0f));
-		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(-3.9f, 7.25f, -11.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
 		tele.Draw(lightingShader);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
+		//Bocina 1
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(0.35f, 0.35f, 0.25f));
+		model = glm::translate(model, glm::vec3(-22.2f, 13.45f, -47.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
+		bocina.Draw(lightingShader);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		//Bocina 2
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(0.35f, 0.35f, 0.25f));
+		model = glm::translate(model, glm::vec3(3.2f, 13.45f, -47.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
+		bocina.Draw(lightingShader);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		//Mesita de lámpara
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(3.7f, 4.3f, 3.7f));
+		model = glm::translate(model, glm::vec3(0.9f, 0.05f, 0.3f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
+		mesitaLampara.Draw(lightingShader);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		//Lámpara
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(0.4f));
+		model = glm::translate(model, glm::vec3(8.2f, 9.15f, 2.8f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
+		lamparaSala.Draw(lightingShader);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 
 		glEnable(GL_BLEND);//Activa la funcionalidad para trabajar el canal alfa
@@ -513,7 +555,6 @@ int main()
 		pelota.Draw(lightingShader);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-
 		glDisable(GL_BLEND);  //Desactiva el canal alfa 
 		glUniform4f(glGetUniformLocation(lightingShader.Program, "colorAlpha"), 1.0, 1.0, 1.0, 1.0);  
 		glBindVertexArray(0);
@@ -530,11 +571,8 @@ int main()
 		glfwSwapBuffers(window);
 	}
 
-
 	// Terminate GLFW, clearing any resources allocated by GLFW.
 	glfwTerminate();
-
-
 
 	return 0;
 }
@@ -542,33 +580,25 @@ int main()
 // Moves/alters the camera positions based on user input
 void DoMovement()
 {
-
 	// Camera controls
 	if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP])
 	{
 		camera.ProcessKeyboard(FORWARD, deltaTime);
-
 	}
 
 	if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN])
 	{
 		camera.ProcessKeyboard(BACKWARD, deltaTime);
-
-
 	}
 
 	if (keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT])
 	{
 		camera.ProcessKeyboard(LEFT, deltaTime);
-
-
 	}
 
 	if (keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT])
 	{
 		camera.ProcessKeyboard(RIGHT, deltaTime);
-
-
 	}
 
 	//Para animación de objetos 
@@ -635,6 +665,16 @@ void DoMovement()
 	if (keys[GLFW_KEY_X])
 	{
 		telefonoEnMovimiento = false;
+	}
+
+	if (keys[GLFW_KEY_C])
+	{
+		animCajonSala1 = true;
+	}
+
+	if (keys[GLFW_KEY_V])
+	{
+		animCajonSala2 = true;
 	}
 
 	//Movimiento de objetos 
@@ -734,7 +774,24 @@ void DoMovement()
 		}
 	}
 
+	if (keys[GLFW_KEY_C])
+	{
+		if (animCajonSala1) {
+			while (posicionCajonSala < -20.0) {
+				posicionCajonSala += 0.01;
+			}
 
+		}
+	}
+
+	if (keys[GLFW_KEY_V])
+	{
+		if (animCajonSala2) {
+			while (posicionCajonSala > -24.0f) {
+				posicionCajonSala -= 0.01;
+			}
+		}
+	}
 }
 
 void animacion(){
