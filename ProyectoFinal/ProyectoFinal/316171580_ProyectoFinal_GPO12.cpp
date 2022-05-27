@@ -200,6 +200,12 @@ int main()
 	Model cajon2((char*)"Models/Mueble/cajon2.obj");
 	Model pelota((char*)"Models/Pelota/pelota.obj");
 	Model oso((char*)"Models/Oso de peluche/oso.obj");
+	Model sofa((char*)"Models/Sofa/sofa.obj");
+	Model mesaSala((char*)"Models/MesaSala/mesaSala.obj");
+	Model muebleSala((char*)"Models/Muebles Sala/muebleGrande.obj");
+	Model cajonesMuebleSala((char*)"Models/Muebles Sala/cajones.obj");
+	Model tele((char*)"Models/Tele/tele.obj");
+
 
 	// First, set the container's VAO (and VBO)
 	GLuint VBO, VAO;
@@ -413,6 +419,56 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
 		oso.Draw(lightingShader);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		//Sofa
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(0.8f));
+		model = glm::translate(model, glm::vec3(-2.5f, 3.2f, 3.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
+		sofa.Draw(lightingShader);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		//Mesa de la sala
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(1.5f));
+		model = glm::translate(model, glm::vec3(-3.0f, 1.2f, -0.2f));
+		model = glm::rotate(model, glm::radians(60.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
+		mesaSala.Draw(lightingShader);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		//Mueble de la sala
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(0.4f, 0.35f, 0.4f));
+		model = glm::translate(model, glm::vec3(-5.0f, 3.3f, -24.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
+		muebleSala.Draw(lightingShader);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		//Cajones del mueble de la sala
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(0.4f, 0.35f, 0.4f));
+		model = glm::translate(model, glm::vec3(-5.0f, 3.3f, -24.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
+		cajonesMuebleSala.Draw(lightingShader);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		//Tele
+		model = glm::mat4(1);
+		model = glm::scale(model, glm::vec3(0.8f));
+		model = glm::translate(model, glm::vec3(-2.5f, 6.0f, -12.0f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
+		tele.Draw(lightingShader);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 
