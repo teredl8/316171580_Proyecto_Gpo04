@@ -128,7 +128,6 @@ float vertices[] = {
 	   -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
 };
 
-
 // Deltatime
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
 GLfloat lastFrame = 0.0f;  	// Time of last frame
@@ -178,13 +177,11 @@ int main()
 	// Define the viewport dimensions
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-
-
 	Shader lightingShader("Shaders/lighting.vs", "Shaders/lighting.frag");
 	Shader lampShader("Shaders/lamp.vs", "Shaders/lamp.frag");
 
 	//Carga de modelos 
-	Model casa((char*)"Models/Casa/casaChicas.obj");
+	Model casa((char*)"Models/CasaChicas/casaFinal.obj");
 	Model telefono((char*)"Models/Telefono/Phone2.obj");
 	Model telefonoArriba((char*)"Models/Telefono/Phone1.obj");
 	Model mesita((char*)"Models/Mesita/mesitaConTextura.obj");
@@ -211,7 +208,6 @@ int main()
 	Model bocina((char*)"Models/Muebles Sala/bocina.obj");
 	Model mesitaLampara((char*)"Models/mesitaSala/mesitaSala.obj");
 	Model lamparaSala((char*)"Models/lamparaSala/lamparaSala.obj");
-
 
 	// First, set the container's VAO (and VBO)
 	GLuint VBO, VAO;
@@ -429,7 +425,7 @@ int main()
 		//Sofa
 		model = glm::mat4(1);
 		model = glm::scale(model, glm::vec3(0.8f));
-		model = glm::translate(model, glm::vec3(-4.0f, 3.2f, 3.0f));
+		model = glm::translate(model, glm::vec3(-4.0f, 3.2f, 2.8f));
 		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "activaTransparencia"), 0);
